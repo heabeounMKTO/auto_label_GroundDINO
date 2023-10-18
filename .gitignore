@@ -6,7 +6,7 @@ __pycache__/
 #ayylmao
 weights/*
 test_set/*
-
+.ipynb
 # C extensions
 *.so
 
