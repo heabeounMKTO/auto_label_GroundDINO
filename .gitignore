@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#ayylmao
+weights/*
+test_set/*
+
 # C extensions
 *.so
 
