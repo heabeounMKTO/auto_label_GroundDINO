@@ -80,3 +80,7 @@ to
 masker = SamMasker('cuda:0', SAM_WEIGHTS)
 ```
 *`cuda:0` means im using the device with the index 0, to find out all available nvidia devices u can run `nvidia-smi` in the terminal*
+
+Todo/improvements:
+- cleanup code 
+- probably a config file
