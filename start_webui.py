@@ -11,6 +11,7 @@ import supervision as sv
 CONFIG_PATH = "GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
 WEIGHTS_PATH = os.path.join("weights", "groundingdino_swint_ogc.pth")
 SAM_WEIGHTS = "weights/sam_vit_h_4b8939.pth"
+
 finder = DinoFinder(CONFIG_PATH, WEIGHTS_PATH)
 masker = SamMasker('cpu', SAM_WEIGHTS)
 
@@ -21,7 +22,6 @@ def real_coords(x, img):
     y = x.clone() if isinstance(x, torch.Tensor) else np.copy(x)
     w = img.shape[1]
     h = img.shape[0]
-
     y[0] = w * (x[0] - x[2] / 2)  # top left x
     y[1] = h * (x[1] - x[3] / 2)  # top left y
     y[2] = w * (x[0] + x[2] / 2)  # bottom right x
