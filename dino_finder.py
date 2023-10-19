@@ -42,4 +42,7 @@ class DinoFinder:
             if os.path.exists("results") == False:
                 os.makedirs("results")
             cv2.imwrite(f"results/{os.path.basename(image_path)}", anno)
+        self.boxes = boxes 
+        self.conf = logits
+        self.cls = phrases
         return boxes, logits, phrases, anno
