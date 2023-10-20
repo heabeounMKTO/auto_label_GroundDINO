@@ -10,13 +10,15 @@ cv_TEST_IMG = cv2.imread(TEST_IMG)
 CONFIG_PATH = "GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py" 
 WEIGHTS_PATH = os.path.join("weights", "groundingdino_swint_ogc.pth")
 finder = DinoFinder(CONFIG_PATH, WEIGHTS_PATH)
-workfolder = "/home/hbpopos/gtadset/sorted_dset"
+workfolder = "/home/hb/gta_dset/crop"
 
 for image in tqdm(os.listdir(workfolder)):
     if image.endswith(".jpeg"):
         image_path = os.path.join(workfolder, image)
         result_bbox, _conf, _cls = finder.find_by_prompt("human head", image_path)
-        labelz = Label(result_bbox, _cls, cv_TEST_IMG, image_path).create_label()
+        cvim = cv2.imread(image_path)
+        # print(cvim.shape)
+        labelz = Label(result_bbox, _cls, cvim , image_path).create_label()
         jsonFilename = os.path.splitext(image_path)[0] + ".json"
         # print(labelz)
         with open(jsonFilename, "w") as json_output:
