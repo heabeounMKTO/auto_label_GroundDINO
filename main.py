@@ -7,10 +7,12 @@ from tqdm import tqdm
 
 TEST_IMG = "test_set/t1.jpeg"
 cv_TEST_IMG = cv2.imread(TEST_IMG)
-CONFIG_PATH = "GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py" 
+CONFIG_PATH = "GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
 WEIGHTS_PATH = os.path.join("weights", "groundingdino_swint_ogc.pth")
 finder = DinoFinder(CONFIG_PATH, WEIGHTS_PATH)
+
 workfolder = "/home/hb/gta_dset/crop"
+
 
 for image in tqdm(os.listdir(workfolder)):
     if image.endswith(".jpeg"):
@@ -19,6 +21,7 @@ for image in tqdm(os.listdir(workfolder)):
         cvim = cv2.imread(image_path)
         # print(cvim.shape)
         labelz = Label(result_bbox, _cls, cvim , image_path).create_label()
+
         jsonFilename = os.path.splitext(image_path)[0] + ".json"
         # print(labelz)
         with open(jsonFilename, "w") as json_output:
