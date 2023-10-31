@@ -13,7 +13,7 @@ WEIGHTS_PATH = os.path.join("weights", "groundingdino_swint_ogc.pth")
 SAM_WEIGHTS = "weights/sam_vit_h_4b8939.pth"
 
 finder = DinoFinder(CONFIG_PATH, WEIGHTS_PATH)
-masker = SamMasker('cpu', SAM_WEIGHTS)
+masker = SamMasker('cuda:0', SAM_WEIGHTS)
 
 mask_annotator = sv.MaskAnnotator()
 
@@ -119,4 +119,4 @@ with gr.Blocks() as demo:
         api_name="filter results"    
     )
 
-demo.launch()
+demo.launch(share=True)
