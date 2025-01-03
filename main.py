@@ -13,7 +13,6 @@ finder = DinoFinder(CONFIG_PATH, WEIGHTS_PATH)
 
 workfolder = "/home/hb/gta_dset/crop"
 
-
 for image in tqdm(os.listdir(workfolder)):
     if image.endswith(".jpeg"):
         image_path = os.path.join(workfolder, image)
@@ -21,7 +20,6 @@ for image in tqdm(os.listdir(workfolder)):
         cvim = cv2.imread(image_path)
         # print(cvim.shape)
         labelz = Label(result_bbox, _cls, cvim , image_path).create_label()
-
         jsonFilename = os.path.splitext(image_path)[0] + ".json"
         # print(labelz)
         with open(jsonFilename, "w") as json_output:

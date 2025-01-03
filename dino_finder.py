@@ -17,8 +17,6 @@ class DinoFinder:
     def find_by_prompt(self, prompt, image_path, bt=0.55, tt=0.25, save=False):
         if os.path.isfile(image_path):
             original_img, img = load_image(image_path)
-            # print("img_type", type(img), img)
-            # print("o_img_type", type(original_img), original_img)
         else:
             transform = T.Compose(
                 [

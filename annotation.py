@@ -4,7 +4,13 @@ import numpy as np
 import cv2
 import torch
 from pprint import pprint
+import base64
 
+
+def _convertImg2b64(imgpath):
+    with open(imgpath, "rb") as img_file:
+        imgstring = base64.b64encode(img_file.read())
+    return imgstring
 
 class Label:
     def __init__(self, coords, cls, image, filename):
@@ -12,6 +18,7 @@ class Label:
         self.cls = cls
         self.img_w = image.shape[1]
         self.img_h = image.shape[0]
+        self.o_fname = filename
         self.fname = os.path.basename(filename)
 
     def __str__(self):
@@ -24,7 +31,8 @@ class Label:
             points0 = [orig_coords[0], orig_coords[1]]
             points1 = [orig_coords[2], orig_coords[3]]
             points = {
-                "label": (self.cls[index]).replace(" ", "_"),
+                # "label": (self.cls[index]).replace(" ", "_"),
+                "label": self.cls,
                 "points": [points0, points1],
                 "group_id": "null",
                 "shape_type": "rectangle",
@@ -38,6 +46,7 @@ class Label:
             "imagePath": self.fname,
             "imageHeight": self.img_h,
             "imageWidth": self.img_w,
+            "imageData": _convertImg2b64(self.o_fname).decode("utf-8"),
         }
         return label_fmt
 
